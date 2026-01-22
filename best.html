@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Navbar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Smooth transition ke liye custom class optional, par Tailwind ka transition use kiya hai maine */
+        body {
+            font-family: sans-serif;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR START -->
+    <nav class="bg-gray-300 flex justify-between px-8 py-3 relative z-50">
+        
+        <!-- Logo Section -->
+        <div class="bg-red-200 w-16 h-10 grid place-items-center font-bold rounded cursor-pointer">
+            Logo
+        </div>
+
+        <!-- Hamburger Button (Mobile View Only - lg se chote screen par dikhega) -->
+        <button onclick="toggleMenu()" class="lg:hidden text-gray-800 focus:outline-none">
+            <!-- Hamburger Icon SVG -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+        </button>
+
+        <!-- Desktop Menu (Large Screens - lg par dikhega) -->
+        <ul class="hidden lg:flex gap-6 text-lg font-medium text-gray-800 items-center">
+            <li><a href="#" class="hover:text-red-600 transition">Home</a></li>
+            <li><a href="#" class="hover:text-red-600 transition">About</a></li>
+            <li><a href="#" class="hover:text-red-600 transition">Contact</a></li>
+            <li><a href="#" class="hover:text-red-600 transition">List</a></li>
+        </ul>
+
+        <!-- Mobile Menu (Slide from Right) -->
+        <!-- 
+            Logic: 
+            fixed: Position fix karne ke liye.
+            top-0 right-0: Right corner se start.
+            h-full w-full: Pura screen cover kare.
+            transform translate-x-full: Default mein right side mein bahar (hidden).
+            transition-transform: Slide effect ke liye.
+        -->
+        <ul id="mobile-menu" class="fixed top-0 right-0 h-full w-[75%] bg-amber-50 flex flex-col items-center justify-center gap-8 text-2xl font-bold text-gray-800 transform translate-x-full transition-transform duration-300 ease-in-out shadow-2xl lg:hidden">
+            
+            <!-- Close Button inside Menu -->
+            <button onclick="toggleMenu()" class="absolute top-5 right-5 text-gray-600 hover:text-red-500">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+
+            <li class="w-full text-center border-b border-gray-300 pb-2 hover:bg-gray-200 transition cursor-pointer"><a href="#" class="block py-2">Home</a></li>
+            <li class="w-full text-center border-b border-gray-300 pb-2 hover:bg-gray-200 transition cursor-pointer"><a href="#" class="block py-2">About</a></li>
+            <li class="w-full text-center border-b border-gray-300 pb-2 hover:bg-gray-200 transition cursor-pointer"><a href="#" class="block py-2">Contact</a></li>
+            <li class="w-full text-center border-b border-gray-300 pb-2 hover:bg-gray-200 transition cursor-pointer"><a href="#" class="block py-2">List</a></li>
+        </ul>
+        
+        <!-- Overlay Background (Optional: Menu khule par background dhundhla ho) -->
+        <div id="overlay" onclick="toggleMenu()" class="fixed inset-0 bg-black bg-opacity-50 hidden z-40 lg:hidden transition-opacity"></div>
+
+    </nav>
+    <!-- NAVBAR END -->
+
+    <!-- Dummy Content to show scrolling -->
+    <div class="p-10 text-center">
+        <h1 class="text-3xl font-bold mb-4">Responsive Navbar Demo</h1>
+        <p>Resize browser window to mobile size to see the hamburger menu.</p>
+        <div class="h-screen"></div>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const overlay = document.getElementById('overlay');
+            
+            // Check karo ki menu currently hidden hai ya visible
+            if (menu.classList.contains('translate-x-full')) {
+                // Menu ko show karo (slide in)
+                menu.classList.remove('translate-x-full');
+                // Overlay ko show karo
+                overlay.classList.remove('hidden');
+            } else {
+                // Menu ko hide karo (slide out)
+                menu.classList.add('translate-x-full');
+                // Overlay ko hide karo
+                overlay.classList.add('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
